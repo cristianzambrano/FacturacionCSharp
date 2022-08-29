@@ -80,26 +80,45 @@ namespace ConsoleApp6
             return valor;
         }
 
-        public void MenuOpciones()
+        public void MenuPrincipal()
         {
 
             Escribir(35, 1, ConsoleColor.Yellow, "MENÚ DE OPCIONES");
             Escribir(32, 4, ConsoleColor.Yellow, "1.- ");
-            Escribir(35, 4, ConsoleColor.White, "AGREGAR PRODUCTO");
+            Escribir(35, 4, ConsoleColor.White, "PRODUCTOS");
             Escribir(32, 5, ConsoleColor.Yellow, "2.- ");
-            Escribir(35, 5, ConsoleColor.White, "VER PRODUCTOS");
+            Escribir(35, 5, ConsoleColor.White, "CLIENTES");
             Escribir(32, 6, ConsoleColor.Yellow, "3.- ");
-            Escribir(35, 6, ConsoleColor.White, "ACTUALIZAR PRODUCTO");
+            Escribir(35, 6, ConsoleColor.White, "PROVEEDORES");
             Escribir(32, 7, ConsoleColor.Yellow, "4.- ");
-            Escribir(35, 7, ConsoleColor.White, "MOSTRAR ITEMS..");
+            Escribir(35, 7, ConsoleColor.White, "EMPLEADOS");
             Escribir(32, 8, ConsoleColor.Yellow, "5.- ");
-            Escribir(35, 8, ConsoleColor.White, "ELIMINAR..");
+            Escribir(35, 8, ConsoleColor.White, "FACTURAR");
             Escribir(32, 9, ConsoleColor.Yellow, "6.- ");
             Escribir(35, 9, ConsoleColor.White, "SALIR..");
             Marco(25, 3, 65, 11);
 
         }
 
+        public void MenuItems(String ItemDescripcion)
+        {
+
+            Escribir(35, 1, ConsoleColor.Yellow, "MENÚ DE OPCIONES DE " + ItemDescripcion);
+            Escribir(32, 4, ConsoleColor.Yellow, "1.- ");
+            Escribir(35, 4, ConsoleColor.White, "AGREGAR " + ItemDescripcion);
+            Escribir(32, 5, ConsoleColor.Yellow, "2.- ");
+            Escribir(35, 5, ConsoleColor.White, "VER " + ItemDescripcion);
+            Escribir(32, 6, ConsoleColor.Yellow, "3.- ");
+            Escribir(35, 6, ConsoleColor.White, "ACTUALIZAR " + ItemDescripcion);
+            Escribir(32, 7, ConsoleColor.Yellow, "4.- ");
+            Escribir(35, 7, ConsoleColor.White, "MOSTRAR ITEMS..");
+            Escribir(32, 8, ConsoleColor.Yellow, "5.- ");
+            Escribir(35, 8, ConsoleColor.White, "ELIMINAR " + ItemDescripcion);
+            Escribir(32, 9, ConsoleColor.Yellow, "6.- ");
+            Escribir(35, 9, ConsoleColor.White, "REGRESAR AL MENÚ PRINCIPAL..");
+            Marco(25, 3, 65, 11);
+
+        }
 
         public void PintarFondo(ConsoleColor color)
         {

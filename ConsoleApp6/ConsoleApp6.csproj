@@ -181,8 +181,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDatos.cs" />
-    <Compile Include="BaseDatosProductos.cs" />
+    <Compile Include="BaseDatosItems.cs" />
+    <Compile Include="Empleado.cs" />
     <Compile Include="Consola.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Cliente.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,43 +9,42 @@ namespace ConsoleApp6
 {
     internal class Program
     {
+        public static Consola consola;
+        public static BaseDatos objBD;
+
         static void Main(string[] args)
         {
-            Consola consola = new Consola(ConsoleColor.White);
-
-            BaseDatos objBD = new BaseDatos("bdFacturacion");
+            consola = new Consola(ConsoleColor.White);
+            objBD = new BaseDatos("bdFacturacion");
             objBD.AbrirConexion();
-
-            BaseDatosProductos bdProductos = new BaseDatosProductos(consola, objBD);
 
             int opcion;
             do
             {
                 Console.Clear();
                 consola.PintarFondo(ConsoleColor.Black);
-                consola.MenuOpciones();
+                consola.MenuPrincipal();
                 opcion = consola.leerOpcion();
                 switch (opcion)
                 {
                     case 1:
-                        bdProductos.crearProducto();
+                        MenuItem(new Producto(consola, objBD));
                         break;
                     case 2:
-                        bdProductos.mostrarProductoxProducto();
+                        MenuItem(new Cliente(consola, objBD));
                         break;
                     case 3:
-                        bdProductos.actualizarPrecioProducto();
+                        
                         break;
                     case 4:
-                        bdProductos.mostrarProductoTabla();
+                        MenuItem(new Empleado(consola, objBD));
                         break;
                     case 5:
-                        bdProductos.eliminarProducto();
+                        
                         break;
                     default:
                         Console.Clear();
                         consola.Escribir(50, 1, ConsoleColor.Yellow, "FIN DEL PROGRAMA");
-                        bdProductos = null;
                         GC.Collect();
                         Console.Read();
                         break;
@@ -55,6 +54,39 @@ namespace ConsoleApp6
             while (opcion != 6);
 
             objBD.CerrarConexion();
+        }
+
+        static void MenuItem(Item item)
+        {
+            BaseDatosItems bdItems = new BaseDatosItems(consola, objBD, item);
+
+            int opcion;
+            do
+            {
+                Console.Clear();
+                consola.PintarFondo(ConsoleColor.Black);
+                consola.MenuItems(item.Descripcion);
+                opcion = consola.leerOpcion();
+                switch (opcion)
+                {
+                    case 1:
+                        bdItems.crearItem();
+                        break;
+                    case 2:
+                        bdItems.mostrarItemxItem();
+                        break;
+                    case 3:
+                        // bdItems.actualizarPrecioProducto();
+                        break;
+                    case 4:
+                        bdItems.mostrarItemTabla();
+                        break;
+                    case 5:
+                        bdItems.eliminarItem();
+                        break;
+                }
+            }
+            while (opcion != 6);
         }
     }
 
