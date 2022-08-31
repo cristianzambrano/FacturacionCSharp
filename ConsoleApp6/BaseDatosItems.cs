@@ -109,12 +109,18 @@ namespace ConsoleApp6
         public void crearFactura()
         {
             Console.Clear();
-            ((Factura)item).leerInfoEncabezado();
+            Factura factura = new Factura(consola, objBD);
+            int IDFactura = factura.getMaxID();
+            if (factura.leerInfoEncabezado(IDFactura))
+            {
 
-            if (item.guardarItemBD() > 0)
-                consola.Escribir(20, 13, ConsoleColor.Blue, item.Descripcion + " se registró correctamente!!");
+            }
             else
-                consola.Escribir(20, 13, ConsoleColor.Red, "Error al registrar " + item.Descripcion);
+            {
+
+            }
+
+            
 
             Console.ReadLine();
         }

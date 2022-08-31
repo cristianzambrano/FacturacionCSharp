@@ -92,36 +92,7 @@ namespace ConsoleApp6
             while (opcion != 6);
         }
 
-        static void MenuFacturacion(Item item)
-        {
-            
-            BaseDatosItems bdItems = new BaseDatosItems(consola, objBD, item);
-
-            int opcion;
-            do
-            {
-                Console.Clear();
-                consola.PintarFondo(ConsoleColor.Black);
-                consola.MenuFacturación();
-                opcion = consola.leerOpcion();
-                switch (opcion)
-                {
-                    case 1:
-                        bdItems.crearItem();
-                        break;
-                    case 2:
-                        bdItems.mostrarItemxItem();
-                        break;
-                    case 3:
-                        bdItems.mostrarItemTabla();
-                        break;
-                    case 4:
-                        bdItems.eliminarItem();
-                        break;
-                }
-            }
-            while (opcion != 5);
-        }
+        
     }
 
    

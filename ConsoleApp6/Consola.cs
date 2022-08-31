@@ -43,7 +43,7 @@ namespace ConsoleApp6
             Console.ForegroundColor = colorTextoDeaulft;
         }
 
-        public String leerCadena(int left, int top)
+        public String leerCadena(int left, int top, int longitud=0)
         {
             String valor = "";
             do
@@ -51,6 +51,12 @@ namespace ConsoleApp6
                 Console.SetCursorPosition(left, top); Console.Write("                    ");
                 Console.SetCursorPosition(left, top);
                 valor = Console.ReadLine();
+                
+                if (longitud > 0)
+                {
+                    if (valor.Length != longitud) valor="";
+                }
+
             } while (valor == "");
 
             return valor;
