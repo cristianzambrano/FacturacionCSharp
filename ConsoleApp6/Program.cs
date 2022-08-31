@@ -40,7 +40,7 @@ namespace ConsoleApp6
                         MenuItem(new Empleado(consola, objBD));
                         break;
                     case 5:
-                        
+                        MenuItem(new Factura(consola, objBD));
                         break;
                     default:
                         Console.Clear();
@@ -70,7 +70,10 @@ namespace ConsoleApp6
                 switch (opcion)
                 {
                     case 1:
-                        bdItems.crearItem();
+                        if (item.Descripcion == "Factura")
+                            bdItems.crearFactura();
+                        else
+                            bdItems.crearItem();
                         break;
                     case 2:
                         bdItems.mostrarItemxItem();
@@ -87,6 +90,37 @@ namespace ConsoleApp6
                 }
             }
             while (opcion != 6);
+        }
+
+        static void MenuFacturacion(Item item)
+        {
+            
+            BaseDatosItems bdItems = new BaseDatosItems(consola, objBD, item);
+
+            int opcion;
+            do
+            {
+                Console.Clear();
+                consola.PintarFondo(ConsoleColor.Black);
+                consola.MenuFacturación();
+                opcion = consola.leerOpcion();
+                switch (opcion)
+                {
+                    case 1:
+                        bdItems.crearItem();
+                        break;
+                    case 2:
+                        bdItems.mostrarItemxItem();
+                        break;
+                    case 3:
+                        bdItems.mostrarItemTabla();
+                        break;
+                    case 4:
+                        bdItems.eliminarItem();
+                        break;
+                }
+            }
+            while (opcion != 5);
         }
     }
 

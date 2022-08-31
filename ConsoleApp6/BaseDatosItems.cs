@@ -105,6 +105,19 @@ namespace ConsoleApp6
 
 
         }
+
+        public void crearFactura()
+        {
+            Console.Clear();
+            ((Factura)item).leerInfoEncabezado();
+
+            if (item.guardarItemBD() > 0)
+                consola.Escribir(20, 13, ConsoleColor.Blue, item.Descripcion + " se registró correctamente!!");
+            else
+                consola.Escribir(20, 13, ConsoleColor.Red, "Error al registrar " + item.Descripcion);
+
+            Console.ReadLine();
+        }
         /*public int getTotalProductos()
         {
             return bdProductos.Count;

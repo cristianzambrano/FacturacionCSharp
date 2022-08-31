@@ -120,6 +120,24 @@ namespace ConsoleApp6
 
         }
 
+
+        public void MenuFacturación()
+        {
+
+            Escribir(35, 1, ConsoleColor.Yellow, "MENÚ DE OPCIONES DE FACTURACIÓN ");
+            Escribir(32, 4, ConsoleColor.Yellow, "1.- ");
+            Escribir(35, 4, ConsoleColor.White, "CREAR FACTURA ");
+            Escribir(32, 5, ConsoleColor.Yellow, "2.- ");
+            Escribir(35, 5, ConsoleColor.White, "BUSCAR FACTURA ");
+            Escribir(32, 6, ConsoleColor.Yellow, "3.- ");
+            Escribir(35, 6, ConsoleColor.White, "MOSTRAR FACTURAS..");
+            Escribir(32, 7, ConsoleColor.Yellow, "4.- ");
+            Escribir(35, 7, ConsoleColor.White, "ELIMINAR FACTURA " );
+            Escribir(32, 8, ConsoleColor.Yellow, "5.- ");
+            Escribir(35, 8, ConsoleColor.White, "REGRESAR AL MENÚ PRINCIPAL..");
+            Marco(25, 3, 65, 11);
+
+        }
         public void PintarFondo(ConsoleColor color)
         {
             Console.BackgroundColor = color;

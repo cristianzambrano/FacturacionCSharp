@@ -9,18 +9,21 @@ namespace ConsoleApp6
 {
     internal class Cliente:Item
     {
+        public int IDCliente;
         public String Nombres;
         public String Direccion;
         public String Telefono;
+
         
         public Cliente(Consola _consola, BaseDatos _objBD) : base(_consola, _objBD, "000","Cliente", "Cédula")
         {          
         }
 
-        public Cliente(Consola _consola, BaseDatos _objBD, String _Codigo,
+        public Cliente(Consola _consola, BaseDatos _objBD, int IDCliente, String _Codigo,
             String Nombres, String Direccion, String Telefono)
             :base(_consola, _objBD,_Codigo, "Cliente", "Cédula")
         {
+            this.IDCliente = IDCliente;
             this.Nombres = Nombres;
             this.Direccion = Direccion;
             this.Telefono = Telefono;
@@ -33,9 +36,9 @@ namespace ConsoleApp6
 
         public override Item creatItem(Consola _consola, BaseDatos _objBD, DataRow _registro)
         {
-            return new Cliente(_consola, _objBD, _registro["Cedula"].ToString(), 
-                _registro["Nombres"].ToString(), _registro["Direccion"].ToString(),
-                _registro["Telefono"].ToString());
+            return new Cliente(_consola, _objBD, int.Parse(_registro["IDCliente"].ToString()),
+                _registro["Cedula"].ToString(), _registro["Nombres"].ToString(),
+                _registro["Direccion"].ToString(),_registro["Telefono"].ToString());
         }
 
         public override void mostrarMembreteTabla()
