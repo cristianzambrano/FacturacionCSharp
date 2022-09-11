@@ -13,21 +13,19 @@ namespace ConsoleApp6
         public String Cargo;
         public String Area;
         public Double Sueldo;
-        public DateTime FIngreso;
 
         public Empleado(Consola _consola, BaseDatos _objBD) : base(_consola, _objBD, "000","Empleado", "Cédula")
         {          
         }
 
         public Empleado(Consola _consola, BaseDatos _objBD, String _Codigo,
-            String Nombres, String Cargo, String Area, Double Sueldo, DateTime FIngreso)
+            String Nombres, String Cargo, String Area, Double Sueldo)
             :base(_consola, _objBD,_Codigo, "Empleado", "Cédula")
         {
             this.Nombres = Nombres;
             this.Cargo = Cargo;
             this.Area = Area;
             this.Sueldo = Sueldo;
-            this.FIngreso = FIngreso;
         }
 
         public override Item creatItem(Consola _consola, BaseDatos _objBD)
@@ -39,7 +37,7 @@ namespace ConsoleApp6
         {
             return new Empleado(_consola, _objBD, _registro["Cedula"].ToString(), 
                 _registro["Nombres"].ToString(), _registro["Cargo"].ToString(), _registro["Area"].ToString(),
-                Double.Parse(_registro["Sueldo"].ToString()), DateTime.Parse(_registro["fechaingreso"].ToString()));
+                Double.Parse(_registro["Sueldo"].ToString()));
         }
 
         public override void mostrarMembreteTabla()
@@ -57,8 +55,8 @@ namespace ConsoleApp6
             consola.Escribir(10, fila, ConsoleColor.White, Codigo);
             consola.Escribir(25, fila, ConsoleColor.White, Nombres); 
             consola.Escribir(55, fila, ConsoleColor.White, Area);
-            consola.Escribir(65, fila, ConsoleColor.White, Cargo);
-            consola.Escribir(75, fila, ConsoleColor.White, Sueldo.ToString("0.00"));
+            consola.Escribir(70, fila, ConsoleColor.White, Cargo);
+            consola.Escribir(80, fila, ConsoleColor.White, Sueldo.ToString("0.00"));
         }
       
 
