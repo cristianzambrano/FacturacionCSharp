@@ -101,11 +101,11 @@ namespace ConsoleApp6
                 case "Select":
                     if (CodigoABuscar != "")
                     {
-                        SQL = "Select * from tbClientes where Cedula='" + CodigoABuscar + "'";
+                        SQL = "Select ID as IDCliente, * from tbClientes where Cedula='" + CodigoABuscar + "'";
                     }
                     else
                     {
-                        SQL = "Select * from tbClientes order by Cedula";
+                        SQL = "Select ID as IDCliente, * from tbClientes order by Cedula";
                     }
                     break;
               }

@@ -48,30 +48,30 @@ namespace ConsoleApp6
 
         public override void mostrarMembreteTabla()
         {
-            consola.Escribir(40, 2, ConsoleColor.Yellow, "LISTA DE FACTURAS");
+            consola.Escribir(50, 2, ConsoleColor.Yellow, "LISTA DE FACTURAS");
             consola.Escribir(5, 5, ConsoleColor.Blue, "N°"); consola.Escribir(10, 5, ConsoleColor.Blue, "Código");
             consola.Escribir(40, 5, ConsoleColor.Blue, "Cliente"); consola.Escribir(60, 5, ConsoleColor.Blue, "Fecha");
-            consola.Escribir(70, 5, ConsoleColor.Blue, "SubTotal"); consola.Escribir(80, 5, ConsoleColor.Blue, "IVA");
-            consola.Escribir(90, 5, ConsoleColor.Blue, "TotalPagar");
-            consola.Marco(3, 4, 105, 15);
+            consola.Escribir(75, 5, ConsoleColor.Blue, "SubTotal"); consola.Escribir(85, 5, ConsoleColor.Blue, "IVA");
+            consola.Escribir(95, 5, ConsoleColor.Blue, "TotalPagar");
+            consola.Marco(3, 4, 110, 15);
         }
 
         public override void mostrarInfoComoFila(int Num, int fila)
         {
             consola.Escribir(5, fila, ConsoleColor.White, Num.ToString()); 
             consola.Escribir(10, fila, ConsoleColor.White, Codigo);
-            consola.Escribir(30, fila, ConsoleColor.White, Cliente); 
+            consola.Escribir(30, fila, ConsoleColor.White, Cliente.Substring(0,25)); 
             consola.Escribir(60, fila, ConsoleColor.White, Fecha.ToString("dd/MM/yyyy"));
-            consola.Escribir(70, fila, ConsoleColor.White, SubTotal.ToString("0.00"));
-            consola.Escribir(80, fila, ConsoleColor.White, IVA.ToString("0.00"));
-            consola.Escribir(90, fila, ConsoleColor.White, TotalPagar.ToString("0.00"));
+            consola.Escribir(73, fila, ConsoleColor.White, SubTotal.ToString("0.00"));
+            consola.Escribir(83, fila, ConsoleColor.White, IVA.ToString("0.00"));
+            consola.Escribir(93, fila, ConsoleColor.White, TotalPagar.ToString("0.00"));
         }
       
 
         public override void mostrarInfo()
         {
             
-            consola.Escribir(30, 2, ConsoleColor.Red, "INFORMACIÓN DE LA FACTURA");
+            consola.Escribir(25, 2, ConsoleColor.Red, "INFORMACIÓN DE LA FACTURA");
             consola.Marco(10, 3, 65, 12);
             consola.Escribir(20, 5, ConsoleColor.Yellow, "Código: "); consola.Escribir(35, 5, ConsoleColor.White, Codigo);
             consola.Escribir(20, 6, ConsoleColor.Yellow, "Cliente: "); consola.Escribir(35, 6, ConsoleColor.White, Cliente);
@@ -81,39 +81,44 @@ namespace ConsoleApp6
             consola.Escribir(20, 10, ConsoleColor.Yellow, "TotalPagar: "); consola.Escribir(35, 10, ConsoleColor.White, TotalPagar.ToString("0.00"));
         }
 
-        public void leerDetallefactura(int IDFactura)
+        public void leerDetallefactura()
         {
             do { 
                 Console.Clear();
                 mostrarInfo();
                 
-                consola.Escribir(30, 13, ConsoleColor.Red, "PRODUCTOS DE LA FACTURA");
+                consola.Escribir(25, 13, ConsoleColor.Red, "PRODUCTOS DE LA FACTURA");
                 consola.Marco(10, 14, 65, 25);
                 consola.Escribir(11, 15, ConsoleColor.Blue, "Ingrese Código del producto: ");
-                string codItem = consola.leerCadena(30, 15);
+                string codItem = consola.leerCadena(40, 15);
 
-                DataTable tb = busquedaItemBD(Codigo);
+                DataTable tb =  objBD.getDatosTB("Select * from TbProductos where codigo='" + codItem +"'");
                 if (tb.Rows.Count > 0)
                 {
-                    consola.Escribir(20, 16, ConsoleColor.Yellow, "Descripción: "); 
-                    consola.Escribir(35, 16, ConsoleColor.White, tb.Rows[0]["Descripcion"].ToString());
-                    consola.Escribir(20, 17, ConsoleColor.Yellow, "Marca: "); 
-                    consola.Escribir(35, 17, ConsoleColor.White, tb.Rows[0]["Marca"].ToString());
-                    consola.Escribir(20, 18, ConsoleColor.Yellow, "Tipo: "); 
-                    consola.Escribir(35, 18, ConsoleColor.White, tb.Rows[0]["Tipo"].ToString());
+                    consola.Escribir(20, 17, ConsoleColor.Yellow, "Descripción: "); 
+                    consola.Escribir(35, 17, ConsoleColor.White, tb.Rows[0]["Descripcion"].ToString());
+                    consola.Escribir(20, 18, ConsoleColor.Yellow, "Marca: "); 
+                    consola.Escribir(35, 18, ConsoleColor.White, tb.Rows[0]["Marca"].ToString());
                     consola.Escribir(20, 19, ConsoleColor.Yellow, "Precio: "); 
                     consola.Escribir(35, 19, ConsoleColor.White, tb.Rows[0]["Precio"].ToString());
-                    consola.Escribir(35, 20, ConsoleColor.White, tb.Rows[0]["IVA"].ToString());
-                    consola.Escribir(20, 21, ConsoleColor.Blue, "Ingrese Cantidad A Comprar: ");
-                    double Cantidad= consola.leerNumeroDecimal(30, 21);
+                    consola.Escribir(20, 20, ConsoleColor.Yellow, "IVA: ");
+                    consola.Escribir(35, 20, ConsoleColor.White, tb.Rows[0]["IVA"].ToString() + " %");
+                    consola.Escribir(11, 22, ConsoleColor.Blue, "Ingrese Cantidad A Comprar: ");
+                    double Cantidad= consola.leerNumeroDecimal(40, 22);
 
+                    if (objBD.ejecutarComando("Insert into TbDetallefactura (IDEncabezadofact, IDProducto, Cantidad, PVP, IVA) values(" +
+                           this.IDFactura +","+ tb.Rows[0]["ID"].ToString() +"," + Cantidad +"," + tb.Rows[0]["Precio"].ToString() 
+                           + "," + tb.Rows[0]["IVA"].ToString() +");") > 0)
+                    {
+                        consola.Escribir(20, 24, ConsoleColor.Blue, "Se agregó el producto a la Factura");
+                    }
 
                 }
                 else
-                    consola.Escribir(20, 17, ConsoleColor.Red, "Producto NO Encontrado");
+                    consola.Escribir(20, 20, ConsoleColor.Red, "Producto NO Encontrado");
 
-                consola.Escribir(20, 20, ConsoleColor.Blue, "¿Desea agregar otro producto? Si/No");
-                string resp= consola.leerCadena(50, 20);
+                consola.Escribir(11, 26, ConsoleColor.Blue, "¿Desea agregar otro producto? Si/No");
+                string resp= consola.leerCadena(50, 26);
                 if (resp.ToLower() == "no")
                     break;
 
@@ -127,7 +132,7 @@ namespace ConsoleApp6
 
             consola.Escribir(30, 2, ConsoleColor.Red, "NUEVA FACTURA");
             consola.Marco(10, 3, 65, 11);
-            consola.Escribir(30, 4, ConsoleColor.Red, "SELECCIONE EL CLIENTE");
+            consola.Escribir(30, 4, ConsoleColor.Blue, "SELECCIONE EL CLIENTE");
             consola.Escribir(20, 5, ConsoleColor.Yellow, "Código: ");
             Codigo = consola.leerCadena(30, 5);
             DataTable tb = cliente.busquedaItemBD(Codigo);
@@ -135,19 +140,21 @@ namespace ConsoleApp6
             {
                 Console.Clear();
                 consola.Escribir(30, 2, ConsoleColor.Red, "NUEVA FACTURA");
-                consola.Marco(10, 3, 65, 11);
-                consola.Escribir(30, 4, ConsoleColor.Red, "DATOS DE LA FACTURA");
-                consola.Escribir(20, 5, ConsoleColor.Yellow, "Fecha: " + DateTime.Now.ToString("dd/MM/yyyy"));
-                consola.Escribir(20, 6, ConsoleColor.Yellow, "Cliente: " + tb.Rows[0]["Nombres"].ToString());
-                consola.Escribir(20, 7, ConsoleColor.Yellow, "Establecimiento: ");
-                consola.Escribir(20, 8, ConsoleColor.Yellow, "Sucursal: ");
-                consola.Escribir(20, 9, ConsoleColor.Yellow, "Número: ");
-                String Est = consola.leerCadena(35, 7,3);
-                String Sur = consola.leerCadena(35, 8,3);
-                String Num = consola.leerCadena(35, 9,9);
+                consola.Marco(10, 3, 65, 12);
+                consola.Escribir(30, 5, ConsoleColor.Blue, "DATOS DE LA FACTURA");
+                consola.Escribir(20, 6, ConsoleColor.Yellow, "Fecha: ");
+                consola.Escribir(20, 7, ConsoleColor.Yellow, "Cliente: ");
+                consola.Escribir(20, 8, ConsoleColor.Yellow, "Establecimiento: ");
+                consola.Escribir(20, 9, ConsoleColor.Yellow, "Sucursal: ");
+                consola.Escribir(20, 10, ConsoleColor.Yellow, "Número: ");
+                consola.Escribir(40, 6, ConsoleColor.White, DateTime.Now.ToString("dd/MM/yyyy"));
+                consola.Escribir(40, 7, ConsoleColor.White, tb.Rows[0]["Nombres"].ToString());
+                String Est = consola.leerCadena(40, 8,3);
+                String Sur = consola.leerCadena(40, 9,3);
+                String Num = consola.leerCadena(40, 10,9);
 
                 this.Codigo = Est + Sur + Num;
-                this.IDCliente = int.Parse(tb.Rows[0]["Id"].ToString());
+                this.IDCliente = int.Parse(tb.Rows[0]["IdCliente"].ToString());
                 this.Fecha = DateTime.Now;
                 this.IDFactura = IDFactura;
                 this.Cliente = tb.Rows[0]["Nombres"].ToString();
@@ -176,13 +183,14 @@ namespace ConsoleApp6
 
         }
 
+
         public int getMaxID()
         {
             DataTable tb= objBD.getDatosTB("Select max(ID) as MaxID from TbEncabezadoFactura");
             if (tb.Rows.Count > 0)
             {
                 DataRow registro = tb.Rows[0];
-                if (registro["MaxID"] == null)
+                if (registro["MaxID"] == null || registro["MaxID"].ToString()=="")
                 {
                     return 1;
                 }
@@ -221,7 +229,7 @@ namespace ConsoleApp6
                              "' and F.Sucursal='" + CodigoABuscar.Substring(3, 3) + "'" +
                             " and F.Numero='" + CodigoABuscar.Substring(6, 9) + "'";
                     }
-                    SQL=SQL + "GROUP BY c.Nombres, e.Fecha, e.Establecimiento, e.Sucursal, e.Numero, c.ID;";
+                    SQL=SQL + "GROUP BY c.Nombres, e.Fecha, e.Establecimiento, e.Sucursal, e.Numero, c.ID, e.ID;";
                     break;
               }
 

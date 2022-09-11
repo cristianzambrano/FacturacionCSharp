@@ -58,7 +58,7 @@ namespace ConsoleApp6
                 Console.Clear();
                 listaItems.ElementAt(i).mostrarMembreteTabla();
 
-                for (int j = i; (j < listaItems.Count && j - i < 5); j++)
+                for (int j = i; (j < listaItems.Count && j - i < 7); j++)
                 {
                     listaItems.ElementAt(j).mostrarInfoComoFila(j, j - i + 7);
                 }
@@ -113,7 +113,7 @@ namespace ConsoleApp6
             int IDFactura = factura.getMaxID();
             if (factura.leerInfoEncabezado(IDFactura))
             {
-
+                factura.leerDetallefactura();
             }
             else
             {
